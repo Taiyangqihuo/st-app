@@ -5,3 +5,4 @@ pydeck
 plotly
 datetime
 openpyxl
+scipy

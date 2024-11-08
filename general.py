@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
+import json
 st.markdown(
     "<p style='text-align: center; font-size: 36px; font-weight: bold;'>入网信息概览</p>",
     unsafe_allow_html=True
@@ -11,6 +12,8 @@ st.divider()
 column_data = pd.read_excel("citys.xlsx")
 c1, c2= st.columns([4,1])
 with c1:
+    with open('china.json', 'r',encoding='utf-8') as file:
+        geojson_data = json.load(file)
     st.pydeck_chart(
         pdk.Deck(
             map_style=None,
@@ -35,7 +38,7 @@ with c1:
                 ),
                 pdk.Layer(
                     'GeoJsonLayer',
-                    'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',  # GeoJson数据源
+                    geojson_data,  # GeoJson数据源
                     opacity=0.8,
                     stroked=False,
                     filled=True,
